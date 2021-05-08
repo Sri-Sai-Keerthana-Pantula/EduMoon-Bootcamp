@@ -13,6 +13,7 @@ class Header extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault(); // to prevent the page reload
     this.props.onFormSubmit(this.state.term);
+    this.setState({term:""});
   }
 
 

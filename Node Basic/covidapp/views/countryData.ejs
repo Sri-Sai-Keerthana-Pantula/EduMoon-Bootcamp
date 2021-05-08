@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title><%= receivedData.country %> Data</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">Country Name</th>
+                <td><%= receivedData.country %></td>
+              </tr>
+              <tr>
+                <th scope="row">Total Cases</th>
+                <td><%= receivedData.cases %></td>
+              </tr>
+              <tr>
+                <th scope="row">Today's Cases</th>
+                <td><%= receivedData.todayCases %></td>
+              </tr>
+              <tr>
+                <th scope="row">Total Deaths</th>
+                <td><%= receivedData.deaths %></td>
+              </tr>
+              <tr>
+                <th scope="row">Today's Deaths</th>
+                <td><%= receivedData.todayDeaths %></td>
+              </tr>
+              <tr>
+                <th scope="row">Total Recovered</th>
+                <td><%= receivedData.recovered %></td>
+              </tr>
+              <tr>
+                <th scope="row">Today's Recovered</th>
+                <td><%= receivedData.todayRecovered %></td>
+              </tr>
+              <tr>
+                <th scope="row">Active Cases</th>
+                <td><%= receivedData.active %></td>
+              </tr>
+              <tr>
+                <th scope="row">Critical Cases</th>
+                <td><%= receivedData.critical %></td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+              <img src="<%=receivedData.countryInfo.flag%>">
+          </div>
+    </div>
+</body>
+</html>
