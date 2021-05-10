@@ -1,0 +1,170 @@
+> mongo
+> db
+test
+> show dbs
+admin   0.000GB
+amazon  0.000GB
+blogDB  0.000GB
+config  0.000GB
+local   0.000GB
+> use amazon
+switched to db amazon
+> show collections
+products
+> db.products.find()
+{ "_id" : ObjectId("609927450fd227e558fae1ce"), "name" : "macbook air", "price" : "1500", "category" : "Computers" }
+> db.products.insertMany([{"name":"iPhone SE","price":900,"category":"Electronics"},{"name":"AirPods","price":300,"category":"Electronics"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("60992859b7c252a1f60cbb74"),
+                ObjectId("60992859b7c252a1f60cbb75")
+        ]
+}
+> db.products.find()
+{ "_id" : ObjectId("609927450fd227e558fae1ce"), "name" : "macbook air", "price" : "1500", "category" : "Computers" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods", "price" : 300, "category" : "Electronics" }
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("609927450fd227e558fae1ce"),
+        "name" : "macbook air",
+        "price" : "1500",
+        "category" : "Computers"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb74"),
+        "name" : "iPhone SE",
+        "price" : 900,
+        "category" : "Electronics"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb75"),
+        "name" : "AirPods",
+        "price" : 300,
+        "category" : "Electronics"
+}
+> db.products.find({name:"AirPods"})
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods", "price" : 300, "category" : "Electronics" }
+> db.products.find({category:"Electronics"})
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods", "price" : 300, "category" : "Electronics" }
+> db.products.find({category:"Electronics"}).pretty()
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb74"),
+        "name" : "iPhone SE",
+        "price" : 900,
+        "category" : "Electronics"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb75"),
+        "name" : "AirPods",
+        "price" : 300,
+        "category" : "Electronics"
+}
+> db.products.find({},{"name":1})
+{ "_id" : ObjectId("609927450fd227e558fae1ce"), "name" : "macbook air" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods" }
+> db.products.find({},{"name":1,_id:0})
+{ "name" : "macbook air" }
+{ "name" : "iPhone SE" }
+{ "name" : "AirPods" }
+> db.products.find({},{"name":1,_id:0}).limit(2)
+{ "name" : "macbook air" }
+{ "name" : "iPhone SE" }
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("609927450fd227e558fae1ce"),
+        "name" : "macbook air",
+        "price" : "1500",
+        "category" : "Computers"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb74"),
+        "name" : "iPhone SE",
+        "price" : 900,
+        "category" : "Electronics"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb75"),
+        "name" : "AirPods",
+        "price" : 300,
+        "category" : "Electronics"
+}
+> db.products.find({price:{$lt:600}})
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods", "price" : 300, "category" : "Electronics" }
+> db.products.find({price:{$gt:600}})
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+> db.products.updateOne({name:"macbook air"},{$set:{price:1600}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.products.find({price:{$gt:600}})
+{ "_id" : ObjectId("609927450fd227e558fae1ce"), "name" : "macbook air", "price" : 1600, "category" : "Computers" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("609927450fd227e558fae1ce"),
+        "name" : "macbook air",
+        "price" : 1600,
+        "category" : "Computers"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb74"),
+        "name" : "iPhone SE",
+        "price" : 900,
+        "category" : "Electronics"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb75"),
+        "name" : "AirPods",
+        "price" : 300,
+        "category" : "Electronics"
+}
+> db.products.find({$and:[{price:{$gt:200}},{category:"Electronics"}]})
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods", "price" : 300, "category" : "Electronics" }
+> db.products.find({$and:[{price:{$gt:500}},{category:"Electronics"}]})
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+> db.products.find({$or:[{price:{$gt:1000}},{category:"Electronics"}]})
+{ "_id" : ObjectId("609927450fd227e558fae1ce"), "name" : "macbook air", "price" : 1600, "category" : "Computers" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb74"), "name" : "iPhone SE", "price" : 900, "category" : "Electronics" }
+{ "_id" : ObjectId("60992859b7c252a1f60cbb75"), "name" : "AirPods", "price" : 300, "category" : "Electronics" }
+> db.products.updateMany({category:"Electronics"},{$set:{category:"Electronic"}})
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("609927450fd227e558fae1ce"),
+        "name" : "macbook air",
+        "price" : 1600,
+        "category" : "Computers"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb74"),
+        "name" : "iPhone SE",
+        "price" : 900,
+        "category" : "Electronic"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb75"),
+        "name" : "AirPods",
+        "price" : 300,
+        "category" : "Electronic"
+}
+> db.products.remove({name:"macbook air"})
+WriteResult({ "nRemoved" : 1 })
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb74"),
+        "name" : "iPhone SE",
+        "price" : 900,
+        "category" : "Electronic"
+}
+{
+        "_id" : ObjectId("60992859b7c252a1f60cbb75"),
+        "name" : "AirPods",
+        "price" : 300,
+        "category" : "Electronic"
+}
+> db.products.deleteMany({price:{$lte:900}})
+{ "acknowledged" : true, "deletedCount" : 2 }
+> db.products.find()
