@@ -32,12 +32,13 @@ class CreateUser extends Component {
             username:""
         });
 
-        // window.location = "/somePath"
+        window.location = "/create";
     }
 
 
     render() {
         return (
+            <div className="col-*" style={{height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
             <div className="card" style={{width:'100%',padding:'20px',margin:'30px'}}>
                 <h3>Create New User</h3>
                 <form onSubmit={this.onSubmit}>
@@ -60,6 +61,7 @@ class CreateUser extends Component {
                     </div>
                 </form>
             </div>
+        </div>
         );
     }
 }
